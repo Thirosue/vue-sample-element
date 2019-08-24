@@ -77,22 +77,3 @@ yarn test:unit
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
-
-## All
-
-### Run All
-
-```
-$ docker-compose up -d
-$ docker ps
-CONTAINER ID        IMAGE                                   COMMAND                  CREATED             STATUS              PORTS                                NAMES
-6b9b91623b24        mirrored1976/sample-vue-front:latest    "nginx -g 'daemon of…"   2 minutes ago       Up 2 minutes        0.0.0.0:8080->80/tcp                 sample-vue
-fae5dba7d720        mirrored1976/sample-api:latest          "java -Dspring.datas…"   9 minutes ago       Up 9 minutes        0.0.0.0:18081->18081/tcp             sample-api
-fe6635562bca        mirrored1976/sample-db:latest           "docker-entrypoint.s…"   9 minutes ago       Up 9 minutes        33060/tcp, 0.0.0.0:13306->3306/tcp   sample-db
-```
-
-### Stop All
-
-```
-$ docker-compose down
-```
