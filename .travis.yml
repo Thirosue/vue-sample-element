@@ -1,0 +1,22 @@
+sudo: false
+
+language: node_js
+
+node_js:
+  - 'lts/*'
+dist: trusty
+sudo: false
+cache: yarn
+
+script:
+  - rm -rf node_modules/
+  - yarn
+  - yarn lint
+  - yarn test:unit
+  - yarn build
+  - cp -r dist docker/
+  - docker build -t mirrored1976/vue-sample-element docker/
+
+after_script:
+  - docker login -u $DOCKER_USER -p $DOCKER_PASS
+  - docker push mirrored1976/vue-sample-element
