@@ -5,7 +5,7 @@
         <el-header>Login Form</el-header>
         <el-form :model="loginForm" :rules="loginRules" ref="loginForm">
           <!--Error Area-->
-          <error-area :messages="[errMsg]"></error-area>
+          <error-area></error-area>
           <el-form-item id="email" label="email" prop="email">
             <el-input placeholder="Please input email" v-model="loginForm.email"></el-input>
           </el-form-item>
@@ -28,6 +28,7 @@
 <script>
 import Config from "@/conf/Config";
 import { email, required } from "@/conf/ValidatotionRule";
+import { MUTATION_TYPES } from "@/store";
 import { SESSION_MUTATION_TYPES } from "@/store/modules/session";
 import { LOGIN_MESSAGE } from "@/conf/Message";
 import { authApi } from "@/module/Api";
@@ -54,16 +55,14 @@ export default {
       loginRules: {
         email,
         password: required("パスワード")
-      },
-      resetForm: {
-        email: ""
-      },
-      resetRules: {
-        email
-      },
-      errMsg: null,
-      dialogVisible: false
+      }
     };
+  },
+
+  created() {
+    document.cookie = Config.FUNCTION_ID + this.screenId;
+    this.$store.commit(MUTATION_TYPES.SET_PROCESSING, false);
+    this.$store.commit(MUTATION_TYPES.SET_ERROR_MESSAGES, []);
   },
 
   methods: {
@@ -85,7 +84,9 @@ export default {
             })
             .catch(error => {
               if (error.response.status === 401) {
-                this.errMsg = LOGIN_MESSAGE.ERR_AUTH;
+                this.$store.commit(MUTATION_TYPES.SET_ERROR_MESSAGES, [
+                  LOGIN_MESSAGE.ERR_AUTH
+                ]);
               } else {
                 ErrorHandler.apiHandleErr(error.response);
               }
@@ -95,11 +96,9 @@ export default {
     }
   },
   computed: {
+    screenId: () => "LOGIN",
     login() {
       return this.$refs.loginForm;
-    },
-    reset() {
-      return this.$refs.resetForm;
     }
   }
 };

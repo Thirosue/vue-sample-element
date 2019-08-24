@@ -20,7 +20,6 @@
       >
         <span slot="title">
           <el-button type="text" @click.stop.prevent="go(menu.url)">{{menu.name}}</el-button>
-          <router-link :to="menu.url"></router-link>
         </span>
       </el-menu-item>
     </el-submenu>

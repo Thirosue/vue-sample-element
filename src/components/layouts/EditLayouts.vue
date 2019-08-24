@@ -12,6 +12,9 @@
             <slot name="title"></slot>
           </el-header>
 
+          <!--Error Area-->
+          <error-area></error-area>
+
           <!-- setting form -->
           <slot name="form"></slot>
 

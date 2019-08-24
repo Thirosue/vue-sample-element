@@ -9,6 +9,9 @@ import MenuCategoryList from '@/conf/MenuCategoryList';
 import MenuList from '@/conf/MenuList';
 import ErrorHandler from '@/module/ErrorHandler';
 
+/*
+ * グローバル共通処理(mixin)
+ */
 export default {
   // beforeRouteEnter(to, from, next) {
   //  next((vm) => {});
@@ -64,8 +67,7 @@ export default {
       return Config.MY_APP_PREFIX;
     },
     hasState() { return this.$store !== undefined; }, // pluginはステートを持たない
-    // roles() { return this.session && this.session.roles ? this.session.roles : []; },
-    roles() { return ['system_admin']; },
+    roles() { return this.session && this.session.roles ? this.session.roles : []; },
     menuCategories() {
       const categories = this.getTargetList(MenuCategoryList, this.roles);
       return this.$_.chain(categories)

@@ -15,6 +15,7 @@ export const GETTER_TYPES = {
   GET_LOADING: 'GET_LOADING',
   GET_COLLAPSE: 'GET_COLLAPSE',
   GET_PAGE: 'GET_PAGE',
+  GET_ERROR_MESSAGES: 'GET_ERROR_MESSAGES',
 };
 
 export const MUTATION_TYPES = {
@@ -22,6 +23,7 @@ export const MUTATION_TYPES = {
   SET_LOADING: 'SET_LOADING',
   SET_COLLAPSE: 'SET_COLLAPSE',
   SET_PAGE: 'SET_PAGE',
+  SET_ERROR_MESSAGES: 'SET_ERROR_MESSAGES',
 };
 
 const store = new Vuex.Store({
@@ -35,6 +37,7 @@ const store = new Vuex.Store({
     processing: false,
     loading: false,
     isCollapse: true,
+    error_messages: [],
     page: 1,
     mode: process.env.NODE_ENV,
   },
@@ -52,6 +55,9 @@ const store = new Vuex.Store({
     [GETTER_TYPES.GET_PAGE](state) {
       return state.page;
     },
+    [GETTER_TYPES.GET_ERROR_MESSAGES](state) {
+      return state.error_messages;
+    },
   },
 
   mutations: {
@@ -66,6 +72,9 @@ const store = new Vuex.Store({
     },
     [MUTATION_TYPES.SET_PAGE](state, page) {
       state.page = page;
+    },
+    [MUTATION_TYPES.SET_ERROR_MESSAGES](state, error_messages) {
+      state.error_messages = error_messages;
     },
   },
 

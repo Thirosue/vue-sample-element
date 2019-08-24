@@ -13,6 +13,8 @@
               <el-header>
                 <slot name="title"></slot>
               </el-header>
+              <!--Error Area-->
+              <error-area></error-area>
             </el-aside>
             <el-container>
               <el-header style="text-align: right;">

@@ -1,12 +1,16 @@
 import ErrorHandler from '@/module/ErrorHandler';
 import Config from '@/conf/Config';
+import { MUTATION_TYPES } from "@/store";
 
 export default {
   data: () => ({
     data: {},
   }),
   created() {
+    this.$logger.info('BaseDetail start ...');
     document.cookie = Config.FUNCTION_ID + this.screenId;
+    this.$store.commit(MUTATION_TYPES.SET_PROCESSING, false);
+    this.$store.commit(MUTATION_TYPES.SET_ERROR_MESSAGES, []);
   },
   mounted() {
     this.findById(this.$route.params.id);

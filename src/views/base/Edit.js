@@ -40,8 +40,10 @@ export default {
   }),
 
   created() {
+    this.$logger.info('BaseEdit start ...');
     document.cookie = Config.FUNCTION_ID + this.screenId;
     this.$store.commit(MUTATION_TYPES.SET_PROCESSING, false);
+    this.$store.commit(MUTATION_TYPES.SET_ERROR_MESSAGES, []);
   },
 
   async mounted() {

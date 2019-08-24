@@ -16,7 +16,6 @@
         </el-aside>
         <el-container>
           <el-header style="text-align: right;">
-            <span style="font-size:0.9em; margin-right: 10px;">{{session.username}}</span>
             <el-button type="text" @click.stop.prevent="logout">sing out</el-button>
           </el-header>
         </el-container>

@@ -40,16 +40,21 @@ export default {
     next();
   },
 
-  mounted() {
+
+  created() {
     this.$logger.info('BaseList start ...');
+    document.cookie = Config.FUNCTION_ID + this.screenId;
     this.$store.commit(MUTATION_TYPES.SET_PROCESSING, false);
+    this.$store.commit(MUTATION_TYPES.SET_ERROR_MESSAGES, []);
+  },
+
+  mounted() {
     this.$store.commit(MUTATION_TYPES.SET_PAGE, this.currentQuery.page ? this.$_.parseInt(this.currentQuery.page) : 1);
     this.form = { ...this.currentQuery, 'rows': this.currentQuery.rows ? this.$_.parseInt(this.currentQuery.rows) : 10 };
 
     if (this.$is.not.empty(this.currentQuery)) {
       this.findAll();
     }
-    document.cookie = Config.FUNCTION_ID + this.screenId;
   },
 
   methods: {

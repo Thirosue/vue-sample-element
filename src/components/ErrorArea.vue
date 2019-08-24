@@ -11,16 +11,15 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+import { GETTER_TYPES } from "@/store";
 import { isNotEmpty } from "@/helpers/validators";
 
 export default {
-  props: {
-    messages: {
-      type: Array,
-      required: true
-    }
-  },
   computed: {
+    ...mapGetters({
+      messages: GETTER_TYPES.GET_ERROR_MESSAGES
+    }),
     errorVisible() {
       return this.messages.some(message => isNotEmpty(message));
     }
