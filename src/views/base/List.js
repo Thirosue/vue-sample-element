@@ -34,7 +34,7 @@ export default {
 
   beforeRouteUpdate(to, from, next) {
     this.results = [];
-    if (!this.$is.empty(to.query)) {
+    if (this.$is.not.empty(to.query)) {
       this.findAll();
     }
     next();
@@ -46,7 +46,7 @@ export default {
     this.$store.commit(MUTATION_TYPES.SET_PAGE, this.currentQuery.page ? this.$_.parseInt(this.currentQuery.page) : 1);
     this.form = { ...this.currentQuery, 'rows': this.currentQuery.rows ? this.$_.parseInt(this.currentQuery.rows) : 10 };
 
-    if (!this.$is.empty(this.currentQuery)) {
+    if (this.$is.not.empty(this.currentQuery)) {
       this.findAll();
     }
     document.cookie = Config.FUNCTION_ID + this.screenId;
