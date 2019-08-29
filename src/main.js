@@ -13,6 +13,7 @@ import * as Sentry from '@sentry/browser';
 import * as Integrations from '@sentry/integrations';
 
 import ElementUI from 'element-ui';
+import locale from 'element-ui/lib/locale/lang/ja';
 
 import router from '@/router';
 import store from '@/store';
@@ -39,7 +40,7 @@ import logger from '@/module/Logger';
 
 import '@/assets/theme/index.css';
 
-Vue.use(ElementUI);
+Vue.use(ElementUI, { locale });
 
 Vue.config.productionTip = false;
 Vue.use(MyApplicationPlugin);
