@@ -19,6 +19,7 @@ export default {
     },
     results: [],
     count: null,
+    searched: false
   }),
 
   beforeRouteEnter(to, from, next) {
@@ -34,12 +35,13 @@ export default {
 
   beforeRouteUpdate(to, from, next) {
     this.results = [];
+    this.searched = false;
+    this.$store.commit(MUTATION_TYPES.SET_PAGE, to.query.page ? this.$_.parseInt(to.query.page) : 1);
     if (this.$is.not.empty(to.query)) {
       this.findAll();
     }
     next();
   },
-
 
   created() {
     this.$logger.info('BaseList start ...');
@@ -66,8 +68,9 @@ export default {
     async findAll() {
       this.$logger.info(`Search Action at ${this.path}`, { id: this.session.username, path: this.currentPath, query: this.where });
       this.$store.commit(MUTATION_TYPES.SET_PROCESSING, true);
-      const response = await this.callApi(this.where).catch(ErrorHandler.apiHandleErr);
-      this.$store.commit(MUTATION_TYPES.SET_PROCESSING, false);
+      const response = await this.callApi(this.where)
+        .catch(ErrorHandler.apiHandleErr)
+        .finally(() => this.$store.commit(MUTATION_TYPES.SET_PROCESSING, false));
       this.count = response.count;
       this.results = response.data;
     },
@@ -90,4 +93,12 @@ export default {
     },
     updateScreenId() { return [PATH_LIST.EDIT_COMPLETE, PATH_LIST.REGISTER_COMPLETE].map(str => `/${this.namespace}${str}`); },
   },
+
+  watch: {
+    processing(value) {
+      if (value) {
+        this.searched = true;
+      }
+    }
+  }
 };

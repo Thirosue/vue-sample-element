@@ -13,13 +13,10 @@ export default class ErrorHandler {
         } else if (json.message) {
           store.commit(MUTATION_TYPES.SET_ERROR_MESSAGES, [json.message]);
         }
-        store.commit(MUTATION_TYPES.SET_PROCESSING, false);
       } else {
-        store.commit(MUTATION_TYPES.SET_PROCESSING, false);
         throw new Error(error);
       }
     } catch (e) {
-      store.commit(MUTATION_TYPES.SET_PROCESSING, false);
       throw new Error(e);
     }
   }

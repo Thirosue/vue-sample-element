@@ -6,6 +6,7 @@
       :goCreate="goCreate"
       :results="results"
       :count="count"
+      :searched="searched"
     >
       <template v-slot:title>スタッフ一覧</template>
 

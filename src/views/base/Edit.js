@@ -72,7 +72,8 @@ export default {
               this.$store.commit(MUTATION_TYPES.SET_PROCESSING, false);
               this.$router.push({ path: this.completePath, query: { to: this.listPath } });
             })
-            .catch(ErrorHandler.apiHandleErr);
+            .catch(ErrorHandler.apiHandleErr)
+            .finally(() => this.$store.commit(MUTATION_TYPES.SET_PROCESSING, false));
         });
     },
     back() {

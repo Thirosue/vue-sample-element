@@ -91,7 +91,6 @@
             <span slot="empty">検索結果がありません</span>
           </el-table>
         </span>
-
         <el-pagination
           background
           layout="prev, pager, next"
@@ -132,11 +131,12 @@ export default {
     download: {
       type: Function
     },
-    count: {}
+    count: {},
+    searched: {
+      type: Boolean,
+      required: true
+    }
   },
-  data: () => ({
-    searched: false
-  }),
   computed: {
     page: {
       get() {
@@ -148,13 +148,6 @@ export default {
     },
     showResult() {
       return this.results.length > 0;
-    }
-  },
-  watch: {
-    processing(value) {
-      if (value) {
-        this.searched = true;
-      }
     }
   }
 };
