@@ -13,4 +13,7 @@ export default [
   {
     category: 'USER', icon: 'user', order: 2, name: '会員管理', roles: [Config.ADMIN],
   },
+  {
+    category: 'HOLIDAY', icon: 'calendar-alt', order: 3, name: '祝日管理', roles: [Config.ADMIN],
+  },
 ];

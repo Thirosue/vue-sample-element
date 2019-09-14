@@ -93,6 +93,7 @@ API_CONFIG.ENDPOINT_STAFF = `${API_CONFIG.BASE_URL}/api/staff`;
 API_CONFIG.ENDPOINT_CODE = `${API_CONFIG.BASE_URL}/api/code`;
 API_CONFIG.ENDPOINT_INQUIRY = `${API_CONFIG.BASE_URL}/api/inquiry`;
 API_CONFIG.ENDPOINT_TRANSLATE = `${API_CONFIG.BASE_URL}/api/translate`;
+API_CONFIG.ENDPOINT_HOLIDAY = `${API_CONFIG.BASE_URL}/api/holiday`;
 
 /** *******************
  * API Settings
@@ -135,5 +136,13 @@ export const codeApi = {
 export const inquiryApi = {
   findAll: where => Api.fetchGet(API_CONFIG.ENDPOINT_INQUIRY, where).then(Api.toJson),
   create: data => Api.fetchPost(API_CONFIG.ENDPOINT_INQUIRY, data).then(Api.toJson),
+};
+
+export const holidayApi = {
+  findAll: where => Api.fetchGet(API_CONFIG.ENDPOINT_HOLIDAY, where).then(Api.toJson),
+  findById: id => Api.fetchGet(`${API_CONFIG.ENDPOINT_HOLIDAY}/${id}`).then(Api.toJson),
+  create: data => Api.fetchPost(API_CONFIG.ENDPOINT_HOLIDAY, data).then(Api.toJson),
+  update: data => Api.fetchPut(API_CONFIG.ENDPOINT_HOLIDAY, data).then(Api.toJson),
+  delete: id => Api.fetchDelete(`${API_CONFIG.ENDPOINT_HOLIDAY}/${id}`).then(Api.toJson),
 };
 

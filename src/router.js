@@ -14,7 +14,9 @@ Vue.use(Router);
 
 /* namespace */
 const NAMESPACE_STAFF = 'staff';
+const NAMESPACE_HOLIDAY = 'holiday';
 const STAFF = buildPath(NAMESPACE_STAFF);
+const HOLIDAY = buildPath(NAMESPACE_HOLIDAY);
 
 const router = new Router({
   mode: 'history',
@@ -102,6 +104,36 @@ const router = new Router({
       meta: {
         requiresAuth: true,
         title: '担当者編集完了',
+        allowRoles: [Config.ADMIN],
+      },
+    },
+    {
+      path: HOLIDAY.LIST,
+      name: 'HoliDayList',
+      component: () => import(/* webpackChunkName: "about" */ '@/views/holiday/HolidayList.vue'),
+      meta: {
+        requiresAuth: true,
+        title: '祝日一覧',
+        allowRoles: [Config.ADMIN],
+      },
+    },
+    {
+      path: HOLIDAY.EDIT,
+      name: 'HoliDayEdit',
+      component: () => import(/* webpackChunkName: "about" */ '@/views/holiday/HolidayEdit.vue'),
+      meta: {
+        requiresAuth: true,
+        title: '祝日編集',
+        allowRoles: [Config.ADMIN],
+      },
+    },
+    {
+      path: HOLIDAY.EDIT_COMPLETE,
+      name: 'HoliDayEditComplete',
+      component: () => import(/* webpackChunkName: "about" */ '@/views/common/Complete.vue'),
+      meta: {
+        requiresAuth: true,
+        title: '祝日編集完了',
         allowRoles: [Config.ADMIN],
       },
     }
