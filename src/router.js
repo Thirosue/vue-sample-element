@@ -136,6 +136,16 @@ const router = new Router({
         title: '祝日編集完了',
         allowRoles: [Config.ADMIN],
       },
+    },
+    {
+      path: '/inquery',
+      name: 'Inquery',
+      component: () => import(/* webpackChunkName: "about" */ '@/views/system/Inquery.vue'),
+      meta: {
+        requiresAuth: true,
+        title: 'お問い合わせ',
+        allowRoles: [Config.ADMIN],
+      },
     }
   ],
 });
@@ -158,7 +168,7 @@ router.beforeEach(async (to, from, next) => {
     }
 
     // 権限エラーのハンドリング
-    if (!to.meta.allowRoles.some(role => session.roles.includes(role))) {
+    if (!to.meta.allowRoles.some(role => session.roles !== null && session.roles.includes(role))) {
       logger.info('UnAuthorize Action');
       next(Config.BAD_REQUEST_PATH);
       return;
