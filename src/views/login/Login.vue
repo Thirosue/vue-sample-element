@@ -30,6 +30,7 @@ import Config from "@/conf/Config";
 import { email, required } from "@/conf/ValidatotionRule";
 import { MUTATION_TYPES } from "@/store";
 import { SESSION_MUTATION_TYPES } from "@/store/modules/session";
+import { MASTER_MUTATION_TYPES } from "@/store/modules/master";
 import { LOGIN_MESSAGE } from "@/conf/Message";
 import { authApi } from "@/module/Api";
 import ErrorTracking from "@/module/ErrorTracking";
@@ -63,6 +64,8 @@ export default {
     document.cookie = Config.FUNCTION_ID + this.screenId;
     this.$store.commit(MUTATION_TYPES.SET_PROCESSING, false);
     this.$store.commit(MUTATION_TYPES.SET_ERROR_MESSAGES, []);
+    this.$store.commit(MASTER_MUTATION_TYPES.CLEAR_VALUES);
+    this.$store.commit(SESSION_MUTATION_TYPES.CLEAR_VALUES);
   },
 
   methods: {
