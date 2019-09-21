@@ -77,6 +77,7 @@ describe('Validators', () => {
 
   describe('isDate', () => {
     it('2019-1-1-1', () => {
+      console.warn = jest.fn(); // warning skip
       expect(validators.isDate('2019-1-1-1')).toBe(false);
     });
 
