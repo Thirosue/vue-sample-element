@@ -40,7 +40,7 @@ export default {
   }),
 
   created() {
-    this.$logger.info('BaseEdit start ...');
+    this.$logger.info(`${this.currentName} start ...`);
     document.cookie = Config.FUNCTION_ID + this.screenId;
     this.$store.commit(MUTATION_TYPES.SET_PROCESSING, false);
     this.$store.commit(MUTATION_TYPES.SET_ERROR_MESSAGES, []);
@@ -65,6 +65,7 @@ export default {
       if (this.processing) { return; }
       this.$refs.edit.validate()
         .then(() => {
+          this.$logger.info(`Update Action at ${this.currentName} ${JSON.stringify(this.notNullValue)}`);
           this.$store.commit(MUTATION_TYPES.SET_PROCESSING, true);
           const call = this.form.version ? this.callUpdate : this.callCreate;
           call(this.notNullValue)

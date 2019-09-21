@@ -7,7 +7,7 @@ export default {
     data: {},
   }),
   created() {
-    this.$logger.info('BaseDetail start ...');
+    this.$logger.info(`${this.currentName} start ...`);
     document.cookie = Config.FUNCTION_ID + this.screenId;
     this.$store.commit(MUTATION_TYPES.SET_PROCESSING, false);
     this.$store.commit(MUTATION_TYPES.SET_ERROR_MESSAGES, []);

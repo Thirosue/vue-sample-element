@@ -93,5 +93,8 @@ export default {
     currentQuery() {
       return this.$router.history.current.query;
     },
+    currentName() {
+      return this.$router.history.current.name;
+    },
   },
 };

@@ -44,7 +44,7 @@ export default {
   },
 
   created() {
-    this.$logger.info('BaseList start ...');
+    this.$logger.info(`${this.currentName} start ...`);
     document.cookie = Config.FUNCTION_ID + this.screenId;
     this.$store.commit(MUTATION_TYPES.SET_PROCESSING, false);
     this.$store.commit(MUTATION_TYPES.SET_ERROR_MESSAGES, []);
@@ -66,7 +66,7 @@ export default {
       this.$router.push({ path: this.currentPath, query: { ...this.where, page, 'rows': this.form.rows } });
     },
     async findAll() {
-      this.$logger.info(`Search Action at ${this.path}`, { id: this.session.username, path: this.currentPath, query: this.where });
+      this.$logger.info(`Search Action at ${this.currentName} ${JSON.stringify({ user: this.session.id, query: this.where })}`);
       this.$store.commit(MUTATION_TYPES.SET_PROCESSING, true);
       const response = await this.callApi(this.where)
         .catch(ErrorHandler.apiHandleErr)
