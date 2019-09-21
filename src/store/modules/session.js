@@ -1,5 +1,5 @@
 /* eslint-disable */
-
+import is from 'is_js';
 import { buildModuleTypes } from '@/helpers';
 
 const moduleName = 'session';
@@ -25,18 +25,15 @@ export const SESSION_MUTATION_TYPES = buildModuleTypes({
 export const namespaced = true;
 
 export const state = {
-  values: null,
+  values: {},
 };
 
 export const getters = {
   [GETTER_TYPES.VALUES](state) {
-    if (state.values === null) {
-      return {};
-    }
     return state.values;
   },
   [GETTER_TYPES.IS_LOGIN](state) {
-    return state.values !== null;
+    return is.not.empty(state.values);
   },
 };
 
@@ -46,6 +43,6 @@ export const mutations = {
   },
 
   [MUTATION_TYPES.CLEAR_VALUES](state) {
-    state.values = null;
+    state.values = {};
   },
 };

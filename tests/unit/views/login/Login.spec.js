@@ -17,7 +17,11 @@ const getSubmitButton = wrapper => wrapper.find('#form-submit');
 
 /* setup */
 const initMount = store => {
-  const wrapper = mount(Login, { store, router, localVue });
+  const wrapper = mount(Login, {
+    stubs: {
+      transition: false
+    }, store, router, localVue
+  });
   const email = getEmail(wrapper);
   const password = getPassword(wrapper);
   const emailErrorMsg = () => getEmailError(wrapper); //遅延評価が必要なものは関数にする
@@ -40,6 +44,7 @@ describe('Login view', () => {
 
   beforeEach(() => {
     store = _store;
+    console.warn = jest.fn(); // warning skip
   });
 
   it('mount', () => {

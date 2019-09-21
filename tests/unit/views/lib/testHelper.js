@@ -25,6 +25,7 @@ import ErrorBoundary from '@/components/ErrorBoundary.vue';
 import ErrorArea from '@/components/ErrorArea.vue';
 import Header from '@/components/Header.vue';
 import NavBar from '@/components/Navbar.vue';
+import Footer from '@/components/Footer.vue';
 
 import '@/assets/theme/index.css';
 
@@ -54,6 +55,7 @@ const _localVue = () => {
   localVue.component('error-area', ErrorArea);
   localVue.component('app-navbar', NavBar);
   localVue.component('app-header', Header);
+  localVue.component('app-footer', Footer);
 
   //for datadog
   global.DD_LOGS = {

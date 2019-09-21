@@ -8,12 +8,13 @@ import * as form from '@/store/modules/form';
 import * as master from '@/store/modules/master';
 
 import ErrorBoundary from '@/components/ErrorBoundary.vue';
-
+import Footer from '@/components/Footer.vue';
 
 const localVue = createLocalVue();
 localVue.use(Vuex);
 localVue.use(VueRouter);
 localVue.component('error-boundary', ErrorBoundary);
+localVue.component('app-footer', Footer);
 
 const router = new VueRouter();
 

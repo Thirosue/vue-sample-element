@@ -10,38 +10,37 @@ const localVue = _localVue();
 const router = new VueRouter();
 
 /* elements */
-const getFirstName = wrapper => wrapper.find('#firstName input');
-const getLastName = wrapper => wrapper.find('#lastName input');
-const getEmail = wrapper => wrapper.find('#email input');
-const getTel = wrapper => wrapper.find('#tel input');
 const getErrorAll = wrapper => wrapper.findAll('.is-danger');
 const getSubmitButton = wrapper => wrapper.find('#form-submit');
 
 /* setup */
 const initMount = store => {
-  const wrapper = mount(StaffList, { store, router, localVue });
-  const firstName = getFirstName(wrapper);
-  const lastName = getLastName(wrapper);
-  const email = getEmail(wrapper);
-  const tel = getTel(wrapper);
+  const wrapper = mount(StaffList, {
+    stubs: {
+      transition: false
+    }, store, router, localVue
+  });
   const allErrorMsg = getErrorAll(wrapper);
   const submitButton = getSubmitButton(wrapper);
   return {
     wrapper,
-    firstName,
-    lastName,
-    email,
-    tel,
     allErrorMsg,
     submitButton
   };
 }
+
+// input data
+const firstName = 'firstName';
+const lastName = 'lastName';
+const email = 'email';
+const tel = 'tel';
 
 describe('StaffList view', () => {
   let store;
 
   beforeEach(() => {
     store = _store;
+    window.fetch = mockFetch({});
     router.push('/').catch(err => { });
   });
 
@@ -61,13 +60,15 @@ describe('StaffList view', () => {
 
 
   it('全てのフィールドに正常値を入力した場合、submit が enable となる', () => {
-    const { firstName, lastName, email, tel, allErrorMsg, submitButton } = initMount(store);
-
-    firstName.setValue('firstName');
-    lastName.setValue('lastName');
-    email.setValue('email');
-    tel.setValue('tel');
-    tel.trigger('blur');
+    const { wrapper, allErrorMsg, submitButton } = initMount(store);
+    wrapper.setData({
+      form: {
+        firstName,
+        lastName,
+        email,
+        tel,
+      }
+    });
 
     for (let i = 0; i < allErrorMsg.length; i++) {
       expect(allErrorMsg.at(i).text()).toHaveLength(0);
@@ -89,13 +90,15 @@ describe('StaffList view', () => {
   });
 
   it('全てのフィールドに正常値を入力して検索した場合、入力した内容がURLパラメータに追加されること', () => {
-    const { wrapper, firstName, lastName, email, tel, submitButton } = initMount(store);
-
-    firstName.setValue('firstName');
-    lastName.setValue('lastName');
-    email.setValue('email');
-    tel.setValue('tel');
-    tel.trigger('blur');
+    const { wrapper, submitButton } = initMount(store);
+    wrapper.setData({
+      form: {
+        firstName,
+        lastName,
+        email,
+        tel,
+      }
+    });
 
     const $router = wrapper.vm.$router;
     const spy = jest.spyOn($router, 'push');
