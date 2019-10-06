@@ -10,10 +10,11 @@ import Config from '@/conf/Config';
  */
 export default {
   beforeRouteLeave(to, from, next) {
-    // 以下の場合は、確認ダイアログをスキップする
+    //  + フォームを1回も編集していない場合（= not dirty）
     //  + 完了画面への遷移
     //  + エラーの場合
-    if (to.path === this.completePath
+    if ( !this.dirty
+      || to.path === this.completePath
       || Config.ERROR_PATH.some(path => path.indexOf(to.path) !== -1)) {
       next();
     } else {
@@ -54,6 +55,7 @@ export default {
       this.$logger.info(`Update Start namespace=(${this.namespace}) target = ${id}`);
       const response = await this.callFindById(id).catch(ErrorHandler.apiHandleErr);
       this.form = { ...this.$_.head(response.data) };
+      this.formOrigin = { ...this.form };
     }
   },
 
@@ -94,4 +96,15 @@ export default {
       return notNullValue(this.form)
     },
   },
+
+  watch: {
+    'form': {
+      handler () {
+        if(this.$is.not.equal(JSON.stringify(this.formOrigin), JSON.stringify(this.form))) {
+          this.dirty = true; // 一度でも変更された場合、dirtyとする
+        }
+      },
+      deep: true
+    }
+  }
 };
