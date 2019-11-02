@@ -1,5 +1,5 @@
 <template>
-  <el-select @change="change" v-model="selected" :disabled="disabled">
+  <el-select v-model="selected" :disabled="disabled">
     <span slot="empty">{{defaultValue}}</span>
     <el-option value v-if="!required" :label="defaultValue"></el-option>
     <el-option v-for="({key, value}, index) in options" :label="value" :key="index" :value="key"></el-option>
@@ -30,19 +30,14 @@ export default {
       default: false
     }
   },
-  data() {
-    return {
-      selected: this.value
-    };
-  },
-  methods: {
-    change(newValue) {
-      this.$emit("input", newValue);
-    }
-  },
-  watch: {
-    value(newValue) {
-      this.selected = newValue;
+  computed: {
+    selected: {
+      get() {
+        return this.value;
+      },
+      set(val) {
+        this.$emit("input", val);
+      }
     }
   }
 };

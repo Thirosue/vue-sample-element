@@ -1,5 +1,5 @@
 <template>
-  <el-checkbox-group @change="change" v-model="checkList">
+  <el-checkbox-group v-model="checkList">
     <el-checkbox v-for="({key, value}, index) in options" :label="key" :key="index">{{value}}</el-checkbox>
   </el-checkbox-group>
 </template>
@@ -13,22 +13,16 @@ export default {
       required: true
     }
   },
-  data() {
-    return {
-      checkList: this.value
-    };
-  },
-  methods: {
-    change(newValue) {
-      this.$emit("input", newValue);
-    }
-  },
-  watch: {
-    value(newValue) {
-      if (newValue instanceof Array) {
-        this.checkList = newValue;
-      } else {
-        this.checkList = [newValue];
+  computed: {
+    checkList: {
+      get() {
+        if (this.value instanceof Array) {
+          return this.value;
+        }
+        return [this.value];
+      },
+      set(values) {
+        this.$emit("input", values.filter(val => val));
       }
     }
   }

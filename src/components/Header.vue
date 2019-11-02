@@ -16,6 +16,7 @@
         </el-aside>
         <el-container>
           <el-header style="text-align: right;">
+            <el-button type="text" @click.stop.prevent="go('/sample')">sample</el-button>
             <el-button type="text" @click.stop.prevent="go('/inquery')">inquery</el-button>
             <el-button type="text" @click.stop.prevent="logout">sing out</el-button>
           </el-header>

@@ -1,5 +1,5 @@
 <template>
-  <el-select multiple @change="change" v-model="selected">
+  <el-select multiple v-model="selected">
     <span slot="empty">{{defaultValue}}</span>
     <el-option value v-if="!required" :label="defaultValue"></el-option>
     <el-option v-for="({key, value}, index) in options" :label="value" :key="index" :value="key"></el-option>
@@ -25,22 +25,16 @@ export default {
       default: "選択してください"
     }
   },
-  data() {
-    return {
-      selected: this.value
-    };
-  },
-  methods: {
-    change(newValue) {
-      this.$emit("input", newValue);
-    }
-  },
-  watch: {
-    value(newValue) {
-      if (newValue instanceof Array) {
-        this.selected = newValue;
-      } else {
-        this.selected = [newValue];
+  computed: {
+    selected: {
+      get() {
+        if (this.value instanceof Array) {
+          return this.value;
+        }
+        return [this.value];
+      },
+      set(values) {
+        this.$emit("input", values.filter(val => val));
       }
     }
   }

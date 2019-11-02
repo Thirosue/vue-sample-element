@@ -146,6 +146,16 @@ const router = new Router({
         title: 'お問い合わせ',
         allowRoles: [Config.ADMIN],
       },
+    },
+    {
+      path: '/sample',
+      name: 'sample',
+      component: () => import(/* webpackChunkName: "about" */ '@/views/system/Sample.vue'),
+      meta: {
+        requiresAuth: true,
+        title: 'サンプル',
+        allowRoles: [Config.ADMIN],
+      },
     }
   ],
 });
