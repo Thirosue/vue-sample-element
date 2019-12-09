@@ -3,6 +3,7 @@ import { default as _localVue } from '../lib/testHelper';
 import VueRouter from 'vue-router';
 import { default as _store } from '@/store';
 import Login from '@/views/login/Login.vue';
+import flushPromises from 'flush-promises';
 
 const localVue = _localVue();
 const router = new VueRouter();
@@ -52,38 +53,42 @@ describe('Login view', () => {
     expect(wrapper.isVueInstance()).toBe(true);
   });
 
-  it('Email をフォーマット不正で入力した場合、Emailフォーマットチェックバリデーションが動作する', () => {
+  it('Email をフォーマット不正で入力した場合、Emailフォーマットチェックバリデーションが動作する', async () => {
     const { wrapper, email, emailErrorMsg } = initMount(store);
     email.setValue('hoge');
     email.trigger('blur');
+    await flushPromises();
     console.log(emailErrorMsg().text());
     expect(emailErrorMsg().text()).not.toHaveLength(0);
   });
 
-  it('Email を空でフォーカスアウトした場合、必須チェックバリデーションが動作する', () => {
+  it('Email を空でフォーカスアウトした場合、必須チェックバリデーションが動作する', async () => {
     const { email, emailErrorMsg } = initMount(store);
     email.setValue('hoge');
     email.setValue('');
     email.trigger('blur');
+    await flushPromises();
     console.log(emailErrorMsg().text());
     expect(emailErrorMsg().text()).not.toHaveLength(0);
   });
 
-  it('パスワードを空でフォーカスアウトした場合、必須チェックバリデーションが動作する', () => {
+  it('パスワードを空でフォーカスアウトした場合、必須チェックバリデーションが動作する', async () => {
     const { password, passwordErrorMsg } = initMount(store);
     password.setValue('hoge');
     password.setValue('');
     password.trigger('blur');
+    await flushPromises();
     console.log(passwordErrorMsg().text());
     expect(passwordErrorMsg().text()).not.toHaveLength(0);
   });
 
-  it('全てのフィールドに正常値を入力した場合、submit が enable となる', () => {
+  it('全てのフィールドに正常値を入力した場合、submit が enable となる', async () => {
     const { email, password, allErrorMsg, submitButton } = initMount(store);
 
     email.setValue('test@sample.com');
     password.setValue('password');
     password.trigger('blur');
+    await flushPromises();
     for (let i = 0; i < allErrorMsg.length; i++) {
       expect(allErrorMsg.at(i).text()).toHaveLength(0);
     }
