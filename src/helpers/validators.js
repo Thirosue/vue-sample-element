@@ -1,7 +1,7 @@
 import is from 'is_js';
 import moment from 'moment';
 
-export const isEmpty = value => (is.empty(value) || is.null(value) || is.undefined(value));
+export const isEmpty = value => (is.empty(value) || is.null(value) || is.undefined(value) || ( is.object(value) && Object.keys(value).length === 0 ));
 export const isNotEmpty = value => !isEmpty(value);
 
 export const isEmail = value => is.email(value);

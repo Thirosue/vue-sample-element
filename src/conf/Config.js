@@ -7,6 +7,8 @@ export default {
   DEFAULT_ROWS: '10',
   LOG_RETRY_MAX: 5, // アクセスログ保存のリトライ上限
 
+  REDIRECT_URL: "redirectUrl",
+
   LOGIN_PATH: '/login',
   LOGOUT_PATH: '/logout',
   EDIT_PASSWORD: '/passwordEdit',
