@@ -126,6 +126,10 @@
       "node_modules/(?!(babel-jest|jest-vue-preprocessor|flatpickr)/)"
     ],
     "testURL": "http://localhost/",
-    "cache": false
+    "cache": false,
+    "globals": {
+      "SENTRY_ENDPOINT": "https://xxxxxxxxxxxxxxxxxxxxxxxxxxx@sentry.io/1234567",
+      "DD_DOGS_TOKNEN": "xxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    }
   }
 }
