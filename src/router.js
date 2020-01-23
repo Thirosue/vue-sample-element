@@ -173,7 +173,7 @@ router.beforeEach(async (to, from, next) => {
     // 未ログイン時はログインページへリダイレクト
     if (isEmpty(session)) {
       logger.info('Redirect to Login Form');
-      sessionStorage.setItem(Config.REDIRECT_URL, to.path); // redirect settings
+      sessionStorage.setItem(Config.REDIRECT_URL, JSON.stringify({path: to.path, query: to.query})); // redirect settings
       next(Config.LOGIN_PATH);
       return;
     }

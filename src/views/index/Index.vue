@@ -24,10 +24,10 @@ export default {
       }
 
       /* 直リンクした場合は、リダイレクトさせる */
-      const redirectUrl = sessionStorage.getItem(Config.REDIRECT_URL);
+      const redirect = vm.$_.attempt(JSON.parse.bind(null, sessionStorage.getItem(Config.REDIRECT_URL))); // eslint-disable-line
       sessionStorage.removeItem(Config.REDIRECT_URL); // clear redirect settings
-      if(isNotEmpty(redirectUrl)) {
-        next(redirectUrl);
+      if(!vm.$_.isError(redirect) && vm.$is.object(redirect) && isNotEmpty(redirect)) { // eslint-disable-line
+        next({path: redirect.path, query: redirect.query});
       }
     });
   },
