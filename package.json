@@ -23,7 +23,7 @@
     "js-cookie": "^2.2.1",
     "lodash": "^4.17.19",
     "moment": "^2.24.0",
-    "register-service-worker": "^1.6.2",
+    "register-service-worker": "1.7.2",
     "sprintf-js": "^1.1.2",
     "text-encoding": "^0.7.0",
     "vue": "^2.6.11",
